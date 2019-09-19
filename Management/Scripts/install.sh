@@ -13,8 +13,15 @@ sudo apt-get -y install libpcre3 libpcre3-dbg libpcre3-dev build-essential libpc
 
 #./configure --prefix=/usr --sysconfdir=/etc --localstatedir=/var && make && make install-full
 
-sudo add-apt-repository ppa:oisf/suricata-stable
+sudo add-apt-repository -y ppa:oisf/suricata-stable
 sudo apt update
-sudo apt install suricata jq
+sudo apt -y install suricata jq
 
+IFACE=`ip route get 8.8.8.8 | awk '{ print $5; exit}'`
+
+sudo sed -i '/^af-packet:/,/^$/ { s/interface:.*$/interface: $IFACE/ }' /etc/suricata.yaml
+
+sudo suricata-update
+
+sudo systemctl restart suricata
 
