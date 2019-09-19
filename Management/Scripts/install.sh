@@ -19,7 +19,7 @@ sudo apt -y install suricata jq
 
 IFACE=`ip route get 8.8.8.8 | awk '{ print $5; exit}'`
 
-sudo sed -i '/^af-packet:/,/^$/ { s/interface:.*$/interface: $IFACE/ }' /etc/suricata.yaml
+sudo sed -i "/^af-packet:/,/^$/ { s/interface:.*$/interface: $IFACE/ }" /etc/suricata/suricata.yaml
 
 sudo suricata-update
 
