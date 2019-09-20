@@ -19,5 +19,5 @@
 		}
 	],
 	
-    "log_file": "/var/log/syslog"
+    "log_file": "/var/log/suricata/suricata.log"
 }
