@@ -22,7 +22,7 @@
                   "properties": {
                     "num_cpus": 1,
                     "mem_size": "512 MB",
-                    "disk_size": "5 GB"
+                    "disk_size": "10 GB"
                   }
                 }
               },
