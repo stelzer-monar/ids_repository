@@ -23,5 +23,10 @@ sudo sed -i "/^af-packet:/,/^$/ { s/interface:.*$/interface: $IFACE/ }" /etc/sur
 
 sudo suricata-update
 
-sudo systemctl restart suricata
+sudo systemctl stop suricata
+
+# removes locks from previous instances
+sudo rm -rf /var/run/suricata*.pid
+
+sudo systemctl start suricata
 

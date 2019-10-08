@@ -27,7 +27,7 @@
                 }
               },
               "properties": {
-                "image": "ubuntu-18.10",
+                "image": "ubuntu-19.04",
                 "availability_zone": "nova",
                 "mgmt_driver": "noop"
               }
