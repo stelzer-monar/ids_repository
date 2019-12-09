@@ -19,11 +19,16 @@ sudo apt -y install suricata jq
 
 IFACE=`ip route get 8.8.8.8 | awk '{ print $5; exit}'`
 
+
 sudo sed -i "/^af-packet:/,/^$/ { s/interface:.*$/interface: $IFACE/ }" /etc/suricata/suricata.yaml
+
 
 sudo suricata-update
 
 sudo systemctl stop suricata
+
+sudo echo "alert udp any any -> any any (msg:"Malicious packet received"; content:"malicious";)" >> /var/lib/suricata/rules/custom.rules 
+sudo sed -i "/^rule-files:/ a \ \ - custom.rules" /etc/suricata/suricata.yaml
 
 # removes locks from previous instances
 sudo rm -rf /var/run/suricata*.pid
