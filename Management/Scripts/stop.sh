@@ -2,7 +2,7 @@
 
 set -e
 
-sudo systemctl stop suricata
+sudo service suricata stop
 
 # removes locks from previous instances
 sudo rm -rf /var/run/suricata*.pid

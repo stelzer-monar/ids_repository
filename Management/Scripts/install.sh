@@ -2,7 +2,7 @@
 set -e
 echo "Installing Suricata..."
 
-sudo apt-get -y install libpcre3 libpcre3-dbg libpcre3-dev build-essential libpcap-dev libnet1-dev libyaml-0-2 libyaml-dev pkg-config zlib1g zlib1g-dev libcap-ng-dev libcap-ng0 make libmagic-dev libjansson-dev libnss3-dev libgeoip-dev liblua5.1-dev libhiredis-dev libevent-dev python-yaml rustc cargo libnetfilter-queue-dev libnetfilter-queue1 libnetfilter-log-dev libnetfilter-log1 libnfnetlink-dev libnfnetlink0
+sudo apt-get -y install ethtool python3 iproute2 systemd software-properties-common libpcre3 libpcre3-dbg libpcre3-dev build-essential libpcap-dev libnet1-dev libyaml-0-2 libyaml-dev pkg-config zlib1g zlib1g-dev libcap-ng-dev libcap-ng0 make libmagic-dev libjansson-dev libnss3-dev libgeoip-dev liblua5.1-dev libhiredis-dev libevent-dev python-yaml rustc cargo libnetfilter-queue-dev libnetfilter-queue1 libnetfilter-log-dev libnetfilter-log1 libnfnetlink-dev libnfnetlink0
 
 
 
@@ -23,9 +23,9 @@ IFACE=`ip route get 8.8.8.8 | awk '{ print $5; exit}'`
 sudo sed -i "/^af-packet:/,/^$/ { s/interface:.*$/interface: $IFACE/ }" /etc/suricata/suricata.yaml
 
 
-sudo suricata-update
+sudo suricata-update --no-test
 
-sudo systemctl stop suricata
+sudo service suricata stop
 
 sudo echo "alert udp any any -> any any (msg:"Malicious packet received"; content:"malicious";)" >> /var/lib/suricata/rules/custom.rules 
 sudo sed -i "/^rule-files:/ a \ \ - custom.rules" /etc/suricata/suricata.yaml
@@ -33,5 +33,5 @@ sudo sed -i "/^rule-files:/ a \ \ - custom.rules" /etc/suricata/suricata.yaml
 # removes locks from previous instances
 sudo rm -rf /var/run/suricata*.pid
 
-sudo systemctl start suricata
+sudo service suricata start
 

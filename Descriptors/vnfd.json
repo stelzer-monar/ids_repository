@@ -21,7 +21,7 @@
                 "nfv_compute": {
                   "properties": {
                     "num_cpus": 1,
-                    "mem_size": "512 MB",
+                    "mem_size": "3 GB",
                     "disk_size": "11 GB"
                   }
                 }
